@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="VooraadBeheerOpstap.NewUserDialog">
+   <children>
+      <TextField fx:id="firstNameField" layoutX="193.0" layoutY="31.0" prefHeight="25.0" prefWidth="215.0" promptText="Voornaam" />
+      <TextField fx:id="lastNameField" layoutX="193.0" layoutY="69.0" prefHeight="25.0" prefWidth="215.0" promptText="Achternaam" />
+      <ButtonBar layoutX="386.0" layoutY="346.0" prefHeight="40.0" prefWidth="200.0">
+        <buttons>
+          <Button fx:id="okButton" mnemonicParsing="false" onAction="#okButtonPressed" text="OK" />
+            <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelButtonPressed" text="Cancel" />
+        </buttons>
+      </ButtonBar>
+   </children>
+</AnchorPane>
