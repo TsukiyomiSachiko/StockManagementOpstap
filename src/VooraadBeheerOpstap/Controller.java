@@ -125,6 +125,11 @@ public class Controller {
     @FXML
     private void newUserButtonPressed() {
         String rawData = mainApp.showNewUserDialog();
+
+        if(rawData.equals("")) {
+            return;
+        }
+
         String[] dataParts = rawData.split(",");
 
         String firstName = dataParts[0];
