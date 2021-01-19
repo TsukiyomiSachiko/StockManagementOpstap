@@ -13,10 +13,10 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <TableView layoutX="-12.0" layoutY="38.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="userTable" layoutX="-12.0" layoutY="38.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                      <TableColumn prefWidth="105.0" text="Voornaam" />
-                      <TableColumn prefWidth="93.0" text="Achternaam" />
+                      <TableColumn fx:id="firstNameColumn" prefWidth="105.0" text="Voornaam" />
+                      <TableColumn fx:id="lastNameColumn" prefWidth="93.0" text="Achternaam" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -37,8 +37,8 @@
                   </TableView>
                   <ButtonBar layoutX="147.0" layoutY="344.0" prefHeight="40.0" prefWidth="200.0">
                     <buttons>
-                      <Button mnemonicParsing="false" text="OK" />
-                        <Button mnemonicParsing="false" text="Cancel" />
+                      <Button mnemonicParsing="false" onAction="#okButtonPressed" text="OK" />
+                        <Button mnemonicParsing="false" onAction="#cancelButtonPressed" text="Cancel" />
                     </buttons>
                   </ButtonBar>
                </children>

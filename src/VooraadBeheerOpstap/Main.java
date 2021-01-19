@@ -9,6 +9,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Main extends Application {
 
@@ -159,6 +160,46 @@ public class Main extends Application {
         } catch (IOException e) {
             e.printStackTrace();
             return "";
+        }
+    }
+
+    public String showUserSelectionDialog() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("UserSelectionDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Gebruiker kiezen");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            UserSelectionDialog controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setMainApp(this);
+
+            dialogStage.showAndWait();
+
+            if(controller.isOkClicked()) {
+                User user = controller.getSelectedUser();
+                return user.getUserId();
+            } else {
+                return "";
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    public ArrayList<User> getAllUsers() {
+        try {
+            return databaseHandler.getAllUsers();
+        } catch(IOException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
         }
     }
 

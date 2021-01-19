@@ -105,6 +105,33 @@ public class Controller {
                     currentStock = 0;
 
                     alert.showAndWait();
+                    return;
+                }
+
+                if(isLendItem) {
+                    String userId = mainApp.showUserSelectionDialog();
+
+                    if (userId.equals("")) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Gebruiker Selecteren Verplicht");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Het is verplicht een gebruiker te selecteren");
+
+                        currentStock += 1;
+
+                        alert.showAndWait();
+                        return;
+                    } else {
+                        UUID id = UUID.randomUUID();
+
+                        databaseHandler.createStockRecord(id.toString());
+
+                        try {
+                            databaseHandler.updateStockRecord(id.toString(), userId, scan);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
 
                 databaseHandler.updateArticleRecord(scan, name, currentStock, isLendItem, isStockItem, minimumStock);

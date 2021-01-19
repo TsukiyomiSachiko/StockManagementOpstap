@@ -1,8 +1,10 @@
 package VooraadBeheerOpstap;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class DatabaseHandler {
@@ -118,6 +120,62 @@ public class DatabaseHandler {
             FileWriter fileWriter = new FileWriter(dirName + File.separator + userRecordTable + File.separator +
                     recordId);
             fileWriter.write(firstName + "," + lastName);
+            fileWriter.close();
+        }
+    }
+
+    public ArrayList<User> getAllUsers() throws IOException {
+        File directory = new File(dirName + File.separator + userRecordTable);
+        File[] listOfFiles = directory.listFiles();
+
+        ArrayList<User> listOfUsers = new ArrayList<>();
+
+        for (File file: listOfFiles) {
+            if(file.isFile()) {
+                if(!file.exists() || !file.canRead()) {
+                    throw new IOException("File does not exist or cannot be read");
+                } else {
+                    Scanner reader = new Scanner(file);
+                    StringBuilder data = new StringBuilder();
+
+                    while(reader.hasNextLine()) {
+                        data.append(reader.nextLine());
+                    }
+
+                    reader.close();
+
+                    String stringData = data.toString();
+                    String[] parts = stringData.split(",");
+
+                    listOfUsers.add(new User(file.getName(), parts[0], parts[1]));
+                }
+            }
+        }
+
+        return listOfUsers;
+    }
+
+    public void createStockRecord(String recordId) {
+        File file = new File(dirName + File.separator + stockRecordTable + File.separator + recordId);
+
+        if(!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void updateStockRecord(String recordId, String userId, String articleId) throws IOException {
+        File file = new File(dirName + File.separator + stockRecordTable + File.separator + recordId);
+
+        if(!file.exists() || !file.canWrite()) {
+            throw new IOException("File does not exist or cannot be written");
+        } else {
+            FileWriter fileWriter = new FileWriter(dirName + File.separator + stockRecordTable + File.separator +
+                    recordId);
+            fileWriter.write(userId + "," + articleId);
             fileWriter.close();
         }
     }
