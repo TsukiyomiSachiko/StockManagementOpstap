@@ -124,6 +124,24 @@ public class DatabaseHandler {
         }
     }
 
+    public String readUserRecord(String recordId) throws IOException {
+        File file = new File(dirName + File.separator + userRecordTable + File.separator + recordId);
+
+        if(!file.exists() || !file.canRead()) {
+            throw new IOException("File does not exist or cannot be read");
+        } else {
+            Scanner reader = new Scanner(file);
+            StringBuilder data = new StringBuilder();
+
+            while(reader.hasNextLine()) {
+                data.append(reader.nextLine());
+            }
+
+            reader.close();
+            return data.toString();
+        }
+    }
+
     public ArrayList<User> getAllUsers() throws IOException {
         File directory = new File(dirName + File.separator + userRecordTable);
         File[] listOfFiles = directory.listFiles();
@@ -178,5 +196,36 @@ public class DatabaseHandler {
             fileWriter.write(userId + "," + articleId);
             fileWriter.close();
         }
+    }
+
+    public ArrayList<Stock> getAllStock() throws IOException {
+        File directory = new File(dirName + File.separator + stockRecordTable);
+        File[] listOfFiles = directory.listFiles();
+
+        ArrayList<Stock> listOfStock = new ArrayList<>();
+
+        for(File file : listOfFiles) {
+            if(file.isFile()) {
+                if(!file.exists() || !file.canRead()) {
+                    throw new IOException("File does not exist or cannot be read");
+                } else {
+                    Scanner reader = new Scanner(file);
+                    StringBuilder data = new StringBuilder();
+
+                    while(reader.hasNextLine()) {
+                        data.append(reader.nextLine());
+                    }
+
+                    reader.close();
+
+                    String stringData = data.toString();
+                    String[] dataParts = stringData.split(",");
+
+                    listOfStock.add(new Stock(file.getName(), dataParts[0], dataParts[1]));
+                }
+            }
+        }
+
+        return listOfStock;
     }
 }

@@ -7,7 +7,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
-public class UserSelectionDialog {
+public class SmallUserSelectionDialog {
+
     @FXML
     private TableView<User> userTable;
     @FXML
@@ -27,10 +28,9 @@ public class UserSelectionDialog {
         firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
         lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
 
-        userTable.setItems(getUserList());
-
-        userTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
-                this.selectedUser = newValue);
+        userTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            this.selectedUser = newValue;
+        });
     }
 
     @FXML
@@ -49,21 +49,5 @@ public class UserSelectionDialog {
         this.mainApp = mainApp;
 
         userList.addAll(mainApp.getAllUsers());
-    }
-
-    public ObservableList<User> getUserList() {
-        return userList;
-    }
-
-    public boolean isOkClicked() {
-        return okClicked;
-    }
-
-    public void setDialogStage(Stage dialogStage) {
-        this.dialogStage = dialogStage;
-    }
-
-    public User getSelectedUser() {
-        return selectedUser;
     }
 }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="VooraadBeheerOpstap.SmallUserSelectionDialog">
+   <children>
+      <TableView fx:id="userTable" prefHeight="336.0" prefWidth="600.0">
+        <columns>
+          <TableColumn fx:id="firstNameColumn" prefWidth="300.0" text="Voornaam" />
+          <TableColumn fx:id="lastNameColumn" minWidth="0.0" prefWidth="299.0" text="Achternaam" />
+        </columns>
+      </TableView>
+      <ButtonBar layoutX="386.0" layoutY="346.0" prefHeight="40.0" prefWidth="200.0">
+        <buttons>
+          <Button mnemonicParsing="false" text="Lever in" />
+            <Button mnemonicParsing="false" text="Cancel" />
+        </buttons>
+      </ButtonBar>
+   </children>
+</AnchorPane>

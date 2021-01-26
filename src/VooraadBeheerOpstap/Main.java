@@ -9,6 +9,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Main extends Application {
@@ -197,6 +198,36 @@ public class Main extends Application {
     public ArrayList<User> getAllUsers() {
         try {
             return databaseHandler.getAllUsers();
+        } catch(IOException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+
+    public ArrayList<User> getUsersByLendItem(String itemId) {
+        try {
+            ArrayList<Stock> stockList = databaseHandler.getAllStock();
+            ArrayList<User> userList = new ArrayList<>();
+            ArrayList<String> userIds = new ArrayList<>();
+
+            stockList.forEach((stock) -> {
+                if (stock.getArticleId().equals(itemId)) {
+                    userIds.add(stock.getUserId());
+                }
+            });
+
+            userIds.forEach((userId) -> {
+                try {
+                    String userRaw = databaseHandler.readUserRecord(userId);
+                    String[] dataParts = userRaw.split(",");
+
+                    userList.add(new User(userId, dataParts[0], dataParts[1]));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+
+            return userList;
         } catch(IOException e) {
             e.printStackTrace();
             return new ArrayList<>();
