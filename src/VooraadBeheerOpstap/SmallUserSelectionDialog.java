@@ -7,6 +7,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+
 public class SmallUserSelectionDialog {
 
     @FXML
@@ -22,6 +24,7 @@ public class SmallUserSelectionDialog {
     private boolean okClicked = false;
     private User selectedUser;
     private Main mainApp;
+    private String articleId;
 
     @FXML
     private void initialize() {
@@ -47,7 +50,28 @@ public class SmallUserSelectionDialog {
 
     public void setMainApp(Main mainApp) {
         this.mainApp = mainApp;
+    }
 
-        userList.addAll(mainApp.getAllUsers());
+    public void setArticleId(String articleId) {
+        this.articleId = articleId;
+
+        ArrayList<User> users = mainApp.getUsersByLendItem(articleId);
+        if(users.size() == 0) {
+            dialogStage.close();
+        } else {
+            userList.addAll(users);
+        }
+    }
+
+    public boolean isOkClicked() {
+        return okClicked;
+    }
+
+    public void setDialogStage(Stage dialogStage) {
+        this.dialogStage = dialogStage;
+    }
+
+    public User getSelectedUser() {
+        return selectedUser;
     }
 }

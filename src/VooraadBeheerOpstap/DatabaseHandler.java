@@ -198,6 +198,47 @@ public class DatabaseHandler {
         }
     }
 
+    public String getStockRecordIdByContent(String userId, String articleId) throws IOException {
+        File directory = new File(dirName + File.separator + stockRecordTable);
+        File[] listOfFiles = directory.listFiles();
+
+        for(File file : listOfFiles) {
+            if (file.isFile()) {
+                if(!file.exists() || !file.canRead()) {
+                    throw new IOException("File does not exist or cannot be read");
+                } else {
+                    Scanner reader = new Scanner(file);
+                    StringBuilder data = new StringBuilder();
+
+                    while(reader.hasNextLine()) {
+                        data.append(reader.nextLine());
+                    }
+
+                    reader.close();
+
+                    String stringData = data.toString();
+                    String[] dataParts = stringData.split(",");
+
+                    if(dataParts[0].equals(userId) && dataParts[1].equals(articleId)) {
+                        return file.getName();
+                    }
+                }
+            }
+        }
+
+        return "";
+    }
+
+    public void deleteStockRecord(String stockId) throws IOException {
+        File file = new File(dirName + File.separator + stockRecordTable + File.separator + stockId);
+
+        if(file.exists() && file.canWrite()) {
+            file.delete();
+        } else {
+            throw new IOException("File does not exist or cannnot be read");
+        }
+    }
+
     public ArrayList<Stock> getAllStock() throws IOException {
         File directory = new File(dirName + File.separator + stockRecordTable);
         File[] listOfFiles = directory.listFiles();

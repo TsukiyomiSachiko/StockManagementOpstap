@@ -43,6 +43,15 @@ public class Controller {
                 currentStock += 1;
 
                 databaseHandler.updateArticleRecord(scan, name, currentStock, isLendItem, isStockItem, minimumStock);
+
+                if (isLendItem) {
+                    String userId = mainApp.showSmallUserSelectionDialog(scan);
+                    if(userId.equals("")) {
+                        return;
+                    } else {
+
+                    }
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }

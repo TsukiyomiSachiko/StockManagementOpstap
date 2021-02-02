@@ -195,6 +195,38 @@ public class Main extends Application {
         }
     }
 
+    public String showSmallUserSelectionDialog(String articleId) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("SmallUserSelectionDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Gebruiker kiezen");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            SmallUserSelectionDialog controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setMainApp(this);
+            controller.setArticleId(articleId);
+
+            dialogStage.showAndWait();
+
+            if(controller.isOkClicked()) {
+                User user = controller.getSelectedUser();
+                return user.getUserId();
+            } else {
+                return "";
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
     public ArrayList<User> getAllUsers() {
         try {
             return databaseHandler.getAllUsers();
