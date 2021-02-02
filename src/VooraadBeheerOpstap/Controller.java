@@ -49,7 +49,7 @@ public class Controller {
                     if(userId.equals("")) {
                         return;
                     } else {
-
+                        databaseHandler.deleteStockRecord(databaseHandler.getStockRecordIdByContent(userId, scan));
                     }
                 }
             } catch (IOException e) {

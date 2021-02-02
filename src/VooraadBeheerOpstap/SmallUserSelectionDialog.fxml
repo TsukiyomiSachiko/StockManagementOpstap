@@ -6,7 +6,6 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="VooraadBeheerOpstap.SmallUserSelectionDialog">
    <children>
       <TableView fx:id="userTable" prefHeight="336.0" prefWidth="600.0">
@@ -17,8 +16,8 @@
       </TableView>
       <ButtonBar layoutX="386.0" layoutY="346.0" prefHeight="40.0" prefWidth="200.0">
         <buttons>
-          <Button mnemonicParsing="false" text="Lever in" />
-            <Button mnemonicParsing="false" text="Cancel" />
+          <Button mnemonicParsing="false" onAction="#okButtonPressed" text="Lever in" />
+            <Button mnemonicParsing="false" onAction="#cancelButtonPressed" text="Cancel" />
         </buttons>
       </ButtonBar>
    </children>

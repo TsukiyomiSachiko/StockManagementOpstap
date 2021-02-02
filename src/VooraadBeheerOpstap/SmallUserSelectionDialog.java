@@ -31,6 +31,8 @@ public class SmallUserSelectionDialog {
         firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
         lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
 
+        userTable.setItems(getUserList());
+
         userTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             this.selectedUser = newValue;
         });
@@ -56,6 +58,7 @@ public class SmallUserSelectionDialog {
         this.articleId = articleId;
 
         ArrayList<User> users = mainApp.getUsersByLendItem(articleId);
+        System.out.println(users);
         if(users.size() == 0) {
             dialogStage.close();
         } else {
@@ -73,5 +76,9 @@ public class SmallUserSelectionDialog {
 
     public User getSelectedUser() {
         return selectedUser;
+    }
+
+    public ObservableList<User> getUserList() {
+        return userList;
     }
 }
