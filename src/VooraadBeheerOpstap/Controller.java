@@ -5,6 +5,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.UUID;
 
 public class Controller {
@@ -45,7 +46,13 @@ public class Controller {
                 databaseHandler.updateArticleRecord(scan, name, currentStock, isLendItem, isStockItem, minimumStock);
 
                 if (isLendItem) {
+                    ArrayList<User> userList = mainApp.getUsersByLendItem(scan);
+                    if(userList.size() == 0) {
+                        return;
+                    }
+
                     String userId = mainApp.showSmallUserSelectionDialog(scan);
+
                     if(userId.equals("")) {
                         return;
                     } else {

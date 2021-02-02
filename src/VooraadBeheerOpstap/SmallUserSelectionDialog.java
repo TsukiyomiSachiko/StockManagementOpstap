@@ -57,13 +57,7 @@ public class SmallUserSelectionDialog {
     public void setArticleId(String articleId) {
         this.articleId = articleId;
 
-        ArrayList<User> users = mainApp.getUsersByLendItem(articleId);
-        System.out.println(users);
-        if(users.size() == 0) {
-            dialogStage.close();
-        } else {
-            userList.addAll(users);
-        }
+        userList.addAll(mainApp.getUsersByLendItem(articleId));
     }
 
     public boolean isOkClicked() {
