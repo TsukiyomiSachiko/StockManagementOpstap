@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static java.lang.Boolean.parseBoolean;
+import static jdk.nashorn.internal.runtime.GlobalFunctions.parseInt;
+
 public class DatabaseHandler {
     //Main database Directory
     private String dirName = "StockDatabase";
@@ -97,6 +100,38 @@ public class DatabaseHandler {
             reader.close();
             return data.toString();
         }
+    }
+
+    public ArrayList<Article> getAllArticles() throws IOException{
+        File directory = new File(dirName + File.separator + articleRecordTable);
+        File[] listOfFiles = directory.listFiles();
+
+        ArrayList<Article> listOfArticles = new ArrayList<>();
+
+        for(File file : listOfFiles) {
+            if(file.isFile()) {
+                if(!file.exists() || !file.canRead()) {
+                    throw new IOException("File does not exist or cannot be read");
+                } else {
+                    Scanner reader = new Scanner(file);
+                    StringBuilder data = new StringBuilder();
+
+                    while(reader.hasNextLine()) {
+                        data.append(reader.nextLine());
+                    }
+
+                    reader.close();
+
+                    String stringData = data.toString();
+                    String[] dataParts = stringData.split(",");
+
+                    listOfArticles.add(new Article(file.getName(), dataParts[0], parseBoolean(dataParts[3]),
+                            parseBoolean(dataParts[2]), Integer.parseInt(dataParts[4]), Integer.parseInt(dataParts[1])));
+                }
+            }
+        }
+
+        return listOfArticles;
     }
 
     public void createUserRecord(String recordId) {
