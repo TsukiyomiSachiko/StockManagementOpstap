@@ -28,7 +28,7 @@
                   <Font size="50.0" />
                </font></Button>
             <Button fx:id="newUserButton" mnemonicParsing="false" onAction="#newUserButtonPressed" prefHeight="200.0" prefWidth="240.0" text="Nieuwe gebruiker" GridPane.columnIndex="1" />
-            <Button fx:id="checkStockButton" mnemonicParsing="false" prefHeight="283.0" prefWidth="280.0" text="Check huidige vooraad" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button fx:id="checkStockButton" mnemonicParsing="false" onAction="#checkStockButtonPressed" prefHeight="283.0" prefWidth="280.0" text="Check huidige vooraad" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </children>

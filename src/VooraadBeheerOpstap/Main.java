@@ -227,6 +227,29 @@ public class Main extends Application {
         }
     }
 
+    public void showStockViewDialog() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("StockViewDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Huidige vooraad");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            StockViewDialog controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setMainApp(this);
+
+            dialogStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public ArrayList<User> getAllUsers() {
         try {
             return databaseHandler.getAllUsers();
@@ -260,6 +283,15 @@ public class Main extends Application {
             });
 
             return userList;
+        } catch(IOException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+
+    public ArrayList<Article> getAllArticles() {
+        try {
+            return databaseHandler.getAllArticles();
         } catch(IOException e) {
             e.printStackTrace();
             return new ArrayList<>();

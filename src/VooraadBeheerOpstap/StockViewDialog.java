@@ -29,6 +29,21 @@ public class StockViewDialog {
         currentStockColumn.setCellValueFactory(cellData -> cellData.getValue().currentStockProperty());
         minimumStockColumn.setCellValueFactory(cellData -> cellData.getValue().minimumStockProperty());
 
+        stockTable.setItems(stockList);
+    }
 
+    @FXML
+    private void closeButtonPressed() {
+        this.dialogStage.close();
+    }
+
+    public void setDialogStage(Stage dialogStage) {
+        this.dialogStage = dialogStage;
+    }
+
+    public void setMainApp(Main mainApp) {
+        this.mainApp = mainApp;
+
+        stockList.addAll(mainApp.getAllArticles());
     }
 }

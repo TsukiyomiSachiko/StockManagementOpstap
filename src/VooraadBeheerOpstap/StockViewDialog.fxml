@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="VooraadBeheerOpstap.StockViewDialog">
    <children>
       <GridPane prefHeight="400.0" prefWidth="600.0">
@@ -23,7 +22,7 @@
          <children>
             <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.rowIndex="1">
               <buttons>
-                <Button mnemonicParsing="false" text="Close" />
+                <Button mnemonicParsing="false" onAction="#closeButtonPressed" text="Close" />
               </buttons>
             </ButtonBar>
             <TableView fx:id="stockTable" prefHeight="200.0" prefWidth="200.0">

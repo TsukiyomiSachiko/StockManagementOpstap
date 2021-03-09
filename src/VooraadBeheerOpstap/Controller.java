@@ -189,6 +189,11 @@ public class Controller {
         }
     }
 
+    @FXML
+    private void checkStockButtonPressed() {
+        mainApp.showStockViewDialog();
+    }
+
     public void setDatabaseHandler(DatabaseHandler databaseHandler) {
         this.databaseHandler = databaseHandler;
     }
