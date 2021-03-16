@@ -250,6 +250,30 @@ public class Main extends Application {
         }
     }
 
+    public void showLendViewDialog() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("LendViewDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Uitgeleende artikelen");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            LendViewDialog controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setMainApp(this);
+
+            dialogStage.showAndWait();
+        } catch (IOException e) {
+            System.out.println("Broken");
+            e.printStackTrace();
+        }
+    }
+
     public ArrayList<User> getAllUsers() {
         try {
             return databaseHandler.getAllUsers();
@@ -293,6 +317,31 @@ public class Main extends Application {
         try {
             return databaseHandler.getAllArticles();
         } catch(IOException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+
+    public ArrayList<Lend> getAllLendArticles() {
+        try {
+            ArrayList<Lend> lendList = new ArrayList<>();
+
+            ArrayList<Stock> stockRecords = databaseHandler.getAllStock();
+
+            for(Stock stock : stockRecords) {
+                String articleRecord = databaseHandler.readArticleRecord(stock.getArticleId());
+                String[] articleParts = articleRecord.split(",");
+                String articleName = articleParts[0];
+
+                String userRecord = databaseHandler.readUserRecord(stock.getUserId());
+                String[] userParts = userRecord.split(",");
+                String userName = userParts[0] + " " + userParts[1];
+
+                lendList.add(new Lend(articleName, userName));
+            }
+
+            return lendList;
+        } catch (IOException e) {
             e.printStackTrace();
             return new ArrayList<>();
         }
