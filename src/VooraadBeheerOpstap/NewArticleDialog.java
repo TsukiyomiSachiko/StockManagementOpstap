@@ -2,6 +2,7 @@ package VooraadBeheerOpstap;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
@@ -31,9 +32,21 @@ public class NewArticleDialog {
 
     @FXML
     private void okButtonPressed() {
-        okClicked = true;
+        if(validate()) {
+            okClicked = true;
 
-        dialogStage.close();
+            dialogStage.close();
+        } else {
+            articleName.setText("");
+            articleName.requestFocus();
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invoerfout naam");
+            alert.setHeaderText(null);
+            alert.setContentText("Het naamveld mag niet leeg zijn en geen komma's bevatten");
+
+            alert.showAndWait();
+        }
     }
 
     @FXML
@@ -44,6 +57,14 @@ public class NewArticleDialog {
     @FXML
     private void isStockArticleToggle() {
         minimumStock.setVisible(isStockArticle.isSelected());
+    }
+
+    private boolean validate() {
+        if(articleName.getText().equals("") || articleName.getText().contains(",")) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public void setDialogStage(Stage dialogStage) {

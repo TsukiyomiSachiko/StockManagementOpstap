@@ -27,6 +27,9 @@ public class Main extends Application {
             databaseHandler.createDatabase();
         }
 
+        EmailHandler emailHandler = new EmailHandler();
+        emailHandler.sendEmail();
+
         initRootLayout();
 
         showMainScreen();
