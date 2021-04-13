@@ -109,6 +109,9 @@ public class Controller {
                     alert.setHeaderText(null);
                     alert.setContentText("Minimum vooraad voor artikel " + name + " bereikt, bestel nieuwe");
 
+                    Article article = new Article(scan, name, isStockItem, isLendItem, minimumStock, currentStock);
+                    EmailHandler.sendStockLowEmail(article);
+
                     alert.showAndWait();
                 }
 

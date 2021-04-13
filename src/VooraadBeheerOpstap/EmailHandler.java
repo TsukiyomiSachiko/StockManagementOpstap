@@ -70,7 +70,6 @@ public class EmailHandler {
                 .append("VooraadBeheer praktijk memo");
 
 
-
         try {
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(from));
