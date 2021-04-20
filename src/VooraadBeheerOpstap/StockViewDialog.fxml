@@ -22,6 +22,7 @@
          <children>
             <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.rowIndex="1">
               <buttons>
+                  <Button mnemonicParsing="false" onAction="#sendStockOverview" text="Stuur vooraadoverzicht" />
                 <Button mnemonicParsing="false" onAction="#closeButtonPressed" text="Close" />
               </buttons>
             </ButtonBar>

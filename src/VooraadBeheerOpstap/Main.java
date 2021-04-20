@@ -350,6 +350,25 @@ public class Main extends Application {
         }
     }
 
+    public boolean prepareAndSendStockOverviewMail() {
+        try {
+            ArrayList<Article> articleRecords = databaseHandler.getAllArticles();
+            ArrayList<Article> articlesStock = new ArrayList<>();
+
+            for(Article article : articleRecords) {
+                if (article.getIsStock()) {
+                    articlesStock.add(article);
+                }
+            }
+
+            EmailHandler.sendStockEmail(articlesStock);
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public Stage getPrimaryStage() {
         return primaryStage;
     }

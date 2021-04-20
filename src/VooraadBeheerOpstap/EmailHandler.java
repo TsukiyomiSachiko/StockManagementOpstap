@@ -3,6 +3,7 @@ package VooraadBeheerOpstap;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.util.ArrayList;
 import java.util.Properties;
 
 public class EmailHandler {
@@ -75,6 +76,49 @@ public class EmailHandler {
             message.setFrom(new InternetAddress(from));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
             message.setSubject("Vooraadmimimum bereikt voor " + article.getName());
+            message.setText(stringBuilder.toString());
+
+            Transport.send(message);
+        } catch (MessagingException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static void sendStockEmail(ArrayList<Article> articles) {
+        //String to = "l.tunders@praktijkmemo.nl";
+        String to = "jasonroffel@hotmail.nl";
+        String from = "VooraadBeheerOpstap@opstapvooraad.nl";
+        String host = "localhost";
+        String user = "VooraadBeheerOpstap";
+        String pass = "root";
+
+        Properties properties = System.getProperties();
+        properties.put("mail.smtp.auth", true);
+        properties.put("mail.smtp.host", host);
+
+        Session session = Session.getInstance(properties, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(user, pass);
+            }
+        });
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Beste ontvanger, \n\n")
+                .append("Onderstaand vooraadoverzicht is voor u gegenereerd: \n\n");
+
+        for (Article article : articles) {
+            stringBuilder.append(article.getName()).append(": huidige vooraad: ").append(article.getCurrentStock())
+                    .append(", minimum vooraad: ").append(article.getMinimumStock()).append(". \n");
+        }
+
+        stringBuilder.append("\n Met vriendelijke groet, \n\n Vooraadbeheer Praktijk Memo");
+
+        try {
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(from));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            message.setSubject("Vooraadoverzicht");
             message.setText(stringBuilder.toString());
 
             Transport.send(message);
